@@ -1,0 +1,9 @@
+# URL to the calender in the form:
+# https://user:pass@hostname/caldav.php/
+url = ''
+
+# Calender to be scaned
+calendar = ''
+
+# Category to be scaned for
+category = ''
