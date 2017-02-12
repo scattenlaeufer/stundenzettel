@@ -4,6 +4,10 @@ import caldav
 import datetime
 import config
 
+weekhours = {}
+
+print(config.contracts)
+
 client = caldav.DAVClient(config.url)
 principal = client.principal()
 calendars = principal.calendars()
@@ -51,10 +55,15 @@ total_overtime = 0
 
 weeks = hours.keys()
 weeks.sort()
-#for week, dur in hours.iteritems():
+
+work_statistic = []
+
 for week in weeks:
     dur = hours[week]
-    overtime = dur.total_seconds()/3600-19
+    worktime = dur.total_seconds() / 3600
+    overtime = worktime - 19
     total_overtime += overtime
-    print(week, overtime)
+    week_stat = (week, worktime, overtime)
+    work_statistic.append(week_stat)
+    print(week_stat)
 print(total_overtime)
