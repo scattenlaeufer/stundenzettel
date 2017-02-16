@@ -4,9 +4,12 @@ import caldav
 import datetime
 import config
 
-weekhours = {}
+week_hours = {}
 
 print(config.contracts)
+
+print(week_hours)
+exit()
 
 client = caldav.DAVClient(config.url)
 principal = client.principal()
