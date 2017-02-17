@@ -6,9 +6,52 @@ import config
 
 week_hours = {}
 
-print(config.contracts)
+for contract in config.contracts:
+    start = datetime.datetime.strptime(contract[0], '%Y%m%d')
+    start_week = start.strftime('%Y-%W')
+    start_day_number = int(start.strftime('%w'))
+    if start_day_number > 0 and start_day_number < 6:
+        work_hours_first_week = contract[2] * (6 - float(start_day_number)) / 5
+    else:
+        work_hours_first_week = 0
+    if start_week in week_hours.keys():
+        week_hours[start_week] += work_hours_first_week
+    else:
+        week_hours[start_week] = work_hours_first_week
+    end = datetime.datetime.strptime(contract[1], '%Y%m%d')
+    end_week = end.strftime('%Y-%W')
+    end_day_number = int(end.strftime('%w'))
+    if end_day_number > 0 and end_day_number < 6:
+        work_hours_last_week = contract[2] * float(end_day_number) / 5
+    else:
+        work_hours_last_week = contract[2]
+    if end_week in week_hours.keys():
+        week_hours[end_week] += work_hours_last_week
+    else:
+        week_hours[end_week] = work_hours_last_week
+    if end.strftime('%Y') == start.strftime('%Y'):
+        for week in range(int(start.strftime('%W'))+1, int(end.strftime('%W'))):
+            week_hours[end.strftime('%Y')+'-'+'%02d'%(week,)] = contract[2]
+    else:
+        for year in range(int(start.strftime('%Y')), int(end.strftime('%Y'))+1):
+            if year == int(start.strftime('%Y')):
+                loop_start = int(start.strftime('%W')) + 1
+                loop_end = 54
+            elif year == int(end.strftime('%Y')):
+                loop_start = 0
+                loop_end = int(end.strftime('%W'))
+            else:
+                loop_start = 0
+                loop_end = 54
+            for week in range(loop_start, loop_end):
+                week_hours[str(year)+'-'+'%02d'%(week)] = contract[2]
 
-print(week_hours)
+    print(start, start_week, start_day_number, end, end_week, end_day_number)
+
+weeks = week_hours.keys()
+weeks.sort()
+for week in weeks:
+    print(week + ' -> ' + str(week_hours[week]))
 exit()
 
 client = caldav.DAVClient(config.url)
