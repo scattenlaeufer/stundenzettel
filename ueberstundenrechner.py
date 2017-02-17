@@ -46,14 +46,6 @@ for contract in config.contracts:
             for week in range(loop_start, loop_end):
                 week_hours[str(year)+'-'+'%02d'%(week)] = contract[2]
 
-    print(start, start_week, start_day_number, end, end_week, end_day_number)
-
-weeks = week_hours.keys()
-weeks.sort()
-for week in weeks:
-    print(week + ' -> ' + str(week_hours[week]))
-exit()
-
 client = caldav.DAVClient(config.url)
 principal = client.principal()
 calendars = principal.calendars()
@@ -107,7 +99,7 @@ work_statistic = []
 for week in weeks:
     dur = hours[week]
     worktime = dur.total_seconds() / 3600
-    overtime = worktime - 19
+    overtime = worktime - week_hours[week]
     total_overtime += overtime
     week_stat = (week, worktime, overtime)
     work_statistic.append(week_stat)
