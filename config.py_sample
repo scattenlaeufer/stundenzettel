@@ -7,3 +7,7 @@ calendar = ''
 
 # Category to be scaned for
 category = ''
+# Category for sick days
+sick = ''
+# Category for vacations
+vacation = ''
