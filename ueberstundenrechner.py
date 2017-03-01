@@ -72,7 +72,7 @@ def work_duration(event):
             start_str = line.split(':')[1]
         elif 'DTEND' in line:
             end_str = line.split(':')[1]
-    if config.sick in categories:
+    if config.sick in categories or config.vacation in categories or config.free in categories:
         start = datetime.datetime.strptime(start_str, '%Y%m%d')
         end = datetime.datetime.strptime(end_str, '%Y%m%d')
         duration = end - start

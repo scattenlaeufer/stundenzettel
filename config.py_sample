@@ -11,3 +11,5 @@ category = ''
 sick = ''
 # Category for vacations
 vacation = ''
+# Category for free days
+free = ''
