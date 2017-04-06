@@ -108,7 +108,7 @@ for week in weeks:
     worktime = dur.total_seconds() / 3600
     overtime = worktime - week_hours[week]
     total_overtime += overtime
-    week_stat = (week, worktime, overtime)
+    week_stat = (week, round(worktime, 2), round(overtime, 2))
     work_statistic.append(week_stat)
     print(week_stat)
 print(total_overtime)
