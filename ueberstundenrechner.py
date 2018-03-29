@@ -4,6 +4,8 @@ import caldav
 import datetime
 import config
 
+# urlaub: 20min / stunde und monat
+
 week_hours = {}
 
 for contract in config.contracts:
@@ -111,4 +113,6 @@ for week in weeks:
     week_stat = (week, round(worktime, 2), round(overtime, 2))
     work_statistic.append(week_stat)
     print(week_stat)
-print(total_overtime)
+overtime_h = int(total_overtime)
+overtime_m = int((total_overtime-overtime_h)*60)
+print('{}h {:0>2}\''.format(overtime_h, overtime_m))
